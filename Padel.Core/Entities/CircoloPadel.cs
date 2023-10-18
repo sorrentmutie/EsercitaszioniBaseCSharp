@@ -2,16 +2,43 @@
 
 namespace Padel.Core.Entities;
 
+public class CircoloPadelGenerico<T,U>
+{
+    public string Nome { get; set; } = "";
+    public Indirizzo? Indirizzo { get; set; }
+    public List<T>? Persone { get; set; }
+    public List<U>? AltrePersone { get; set; }
+
+    public CircoloPadelGenerico()
+    {
+        Persone = new List<T>();
+        AltrePersone = new List<U>();
+    }
+
+    public void AggiungiPersona(T persona)
+    {
+        Persone?.Add(persona);
+    }
+
+    public void AggiungiAltraPersona(U persona)
+    {
+        AltrePersone?.Add(persona);
+    }
+}
+
+
+
 public class CircoloPadel
 {
     public string Nome { get; set; } = "";
-    public Indirizzo Indirizzo { get; set; }
+    public Indirizzo? Indirizzo { get; set; }
 
+  
     //public GiocatorePadel[] Giocatori { get; set; } = new GiocatorePadel[1000];
     //public IstruttorePadel[] Istruttori { get; set; } = new IstruttorePadel[1000];
 
-    public ArrayList Giocatori { get; set; } = new ArrayList();
-    public ArrayList Istruttori { get; set; } = new ArrayList();
+    public List<GiocatorePadel>? Giocatori { get; set; }  
+    public List<IstruttorePadel>? Istruttori { get; set; }  
 
 
     // un circolo ha n giocatori

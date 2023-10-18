@@ -32,6 +32,7 @@ public class CircoloPadel
 {
     public string Nome { get; set; } = "";
     public Indirizzo? Indirizzo { get; set; }
+    public int Id { get; set; }
 
   
     //public GiocatorePadel[] Giocatori { get; set; } = new GiocatorePadel[1000];

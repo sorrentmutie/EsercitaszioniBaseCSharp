@@ -13,4 +13,9 @@ public class Persona
     {
         return $"{Nome} {Cognome}";
     }
+
+    public static string NomeInMaiuscolo(string nome)
+    {
+        return nome.ToUpper();
+    }
 }

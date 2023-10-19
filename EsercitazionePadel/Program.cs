@@ -22,6 +22,18 @@ if (circolo != null)
 
 Console.WriteLine("Programma finito");
 
+var ricerca = gestione.Cerca("Rom");
+if(ricerca != null)
+{
+    foreach (var circ in ricerca)
+    {
+        Console.WriteLine(circ.Nome);
+    }
+}
+
+var tuttiICircoli = gestione.EstraiTuttiICircoli();
+tuttiICircoli?.ForEach(c => Console.WriteLine(c.Nome));
+
 
 //var circoli = gestione.EstraiTuttiICircoli();
 //foreach (var item in circoli)

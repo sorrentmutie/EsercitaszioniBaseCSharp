@@ -3,8 +3,8 @@ namespace Padel.Core.Interfaces;
 
 public interface IGestioneCircoliPadel
 {
-    List<CircoloPadel> EstraiTuttiICircoli();
-    List<CircoloPadel> Cerca(string ricerca);
+    List<CircoloPadel>? EstraiTuttiICircoli();
+    List<CircoloPadel>? Cerca(string ricerca);
     CircoloPadel? CercaPerId(int id);
     bool AggiungiCircolo(CircoloPadel circolo);
     void EliminaCircolo(int id);    

@@ -11,7 +11,7 @@ public class GestioneCircoliPadelSuDatabase : IGestioneCircoliPadel
         throw new NotImplementedException();
     }
 
-    public List<CircoloPadel> Cerca(string ricerca)
+    public List<CircoloPadel>? Cerca(string ricerca)
     {
         throw new NotImplementedException();
     }
@@ -21,10 +21,7 @@ public class GestioneCircoliPadelSuDatabase : IGestioneCircoliPadel
         throw new NotImplementedException();
     }
 
-    public void Dispose()
-    {
-        throw new NotImplementedException();
-    }
+   
 
     public void EliminaCircolo(int id)
     {
@@ -61,10 +58,16 @@ public class GestioneCircoliPadelSuFile : IGestioneCircoliPadel
         writer?.Close();
     }
 
-
     private List<CircoloPadel>? LeggiFile(string path)
     {
         var listaLocale = new List<CircoloPadel>();
+
+        if(!File.Exists(path))
+        {
+            var writer = new StreamWriter(path);
+            writer.Close();            
+        }
+
         var reader = new StreamReader(path);
         var contenuto = reader.ReadToEnd();
         if (contenuto != null && contenuto.Length > 0)
@@ -98,9 +101,11 @@ public class GestioneCircoliPadelSuFile : IGestioneCircoliPadel
 
     }
 
-    public List<CircoloPadel> Cerca(string ricerca)
+    public List<CircoloPadel>? Cerca(string ricerca)
     {
-        throw new NotImplementedException();
+        var circoli = LeggiFile(myConfiguration.GetFilePath());
+        return circoli?.Where(
+            circolo => circolo.Nome.Contains(ricerca) || circolo.Indirizzo!.Via.Contains(ricerca)).ToList();
     }
 
     public CircoloPadel? CercaPerId(int id)
@@ -125,9 +130,10 @@ public class GestioneCircoliPadelSuFile : IGestioneCircoliPadel
 
     
 
-    public List<CircoloPadel> EstraiTuttiICircoli()
+    public List<CircoloPadel>? EstraiTuttiICircoli()
     {
-        throw new NotImplementedException();
+        var circoli = LeggiFile(myConfiguration.GetFilePath());
+        return circoli;
     }
 
     public void ModificaCircolo(CircoloPadel circolo)
@@ -159,7 +165,7 @@ public class GestioneCircoliPadel : IGestioneCircoliPadel
         }
     }
 
-    public List<CircoloPadel> Cerca(string ricerca)
+    public List<CircoloPadel>? Cerca(string ricerca)
     {
         return circoli.Where(circolo => 
           circolo.Nome.Contains(ricerca)  || circolo.Indirizzo!.Via.Contains(ricerca)).ToList();
@@ -181,10 +187,7 @@ public class GestioneCircoliPadel : IGestioneCircoliPadel
         //return null;
     }
 
-    public void Dispose()
-    {
-        throw new NotImplementedException();
-    }
+   
 
     public void EliminaCircolo(int id)
     {

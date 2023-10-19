@@ -13,11 +13,12 @@ gestione.AggiungiCircolo(new CircoloPadel { Id = 5, Nome = "Circolo Roma 3" });
 
 
 var circolo = gestione.CercaPerId(3);
-//if(circolo != null)
-//{
-//    circolo.Nome = "Circolo Roma 1 Modificato";
-//    gestione.ModificaCircolo(circolo);
-//}
+Console.WriteLine(circolo?.Nome);
+if (circolo != null)
+{
+    circolo.Nome = "Circolo Roma 1 Modificato";
+    gestione.ModificaCircolo(circolo);
+}
 
 Console.WriteLine("Programma finito");
 

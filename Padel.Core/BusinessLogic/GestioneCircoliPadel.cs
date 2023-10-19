@@ -113,8 +113,17 @@ public class GestioneCircoliPadelSuFile : IGestioneCircoliPadel
 
     public void EliminaCircolo(int id)
     {
-        throw new NotImplementedException();
+        var circoli = LeggiFile(myConfiguration.GetFilePath());
+        var circoloDaRimuovere = circoli?.FirstOrDefault(c => c.Id == id);
+        if(circoloDaRimuovere != null)
+        {
+            circoli?.Remove(circoloDaRimuovere);
+        }
+        var json = JsonSerializer.Serialize(circoli);
+        ScriviSuFile(json, path);
     }
+
+    
 
     public List<CircoloPadel> EstraiTuttiICircoli()
     {
@@ -123,7 +132,12 @@ public class GestioneCircoliPadelSuFile : IGestioneCircoliPadel
 
     public void ModificaCircolo(CircoloPadel circolo)
     {
-        throw new NotImplementedException();
+        var circoloSuFile = CercaPerId(circolo.Id);
+        if(circoloSuFile != null)
+        {
+            EliminaCircolo(circoloSuFile.Id);
+            AggiungiCircolo(circolo);
+        }
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using Padel.Core.Entities;
 using Padel.Core.Interfaces;
+using System.Text.Json;
 
 namespace Padel.Core.BusinessLogic;
 
@@ -41,26 +42,52 @@ public class GestioneCircoliPadelSuDatabase : IGestioneCircoliPadel
     }
 }
 
-
 public class GestioneCircoliPadelSuFile : IGestioneCircoliPadel
 {
-    private string path = "E:\\prova.txt";
-    private StreamWriter? writer;
+    private string path = string.Empty; 
+    private readonly IMyConfiguration myConfiguration;
+    private List<CircoloPadel>? circoliPadel = new();
 
-    public GestioneCircoliPadelSuFile()
+    public GestioneCircoliPadelSuFile(IMyConfiguration myConfiguration)
     {
+        this.myConfiguration = myConfiguration;
+        path = myConfiguration.GetFilePath();
+    }
+
+    private void ScriviSuFile(string json, string path)
+    {
+        var  writer = new StreamWriter(path, false);
+        writer?.WriteLine(json);
+        writer?.Close();
+    }
+
+
+    private List<CircoloPadel>? LeggiFile(string path)
+    {
+        var listaLocale = new List<CircoloPadel>();
         var reader = new StreamReader(path);
         var contenuto = reader.ReadToEnd();
+        if (contenuto != null && contenuto.Length > 0)
+        {
+            listaLocale = JsonSerializer.Deserialize<List<CircoloPadel>>(contenuto);
+        }
         reader.Close();
-        writer = new StreamWriter(path, false);
+        return listaLocale;
     }
 
     public bool AggiungiCircolo(CircoloPadel circolo)
     {
         try
         {
-            writer?.WriteLine(circolo.Nome + " " + circolo.Id);
-           // writer?.Close();
+            var circoliPadel = LeggiFile(myConfiguration.GetFilePath());
+
+            var esisteCircolo = circoliPadel?.FirstOrDefault(c => c.Id == circolo.Id);
+            if(esisteCircolo == null)
+            {
+                circoliPadel?.Add(circolo);
+                var json = JsonSerializer.Serialize(circoliPadel);
+                ScriviSuFile(json, path);
+            }
             return true;
         }
         catch (Exception ex)
@@ -78,13 +105,11 @@ public class GestioneCircoliPadelSuFile : IGestioneCircoliPadel
 
     public CircoloPadel? CercaPerId(int id)
     {
-        throw new NotImplementedException();
+        var circoli = LeggiFile(myConfiguration.GetFilePath());
+        return circoli?.FirstOrDefault(c => c.Id == id);
     }
 
-    public void Dispose()
-    {
-        writer?.Close();
-    }
+  
 
     public void EliminaCircolo(int id)
     {
@@ -101,7 +126,6 @@ public class GestioneCircoliPadelSuFile : IGestioneCircoliPadel
         throw new NotImplementedException();
     }
 }
-
 
 public class GestioneCircoliPadel : IGestioneCircoliPadel
 {

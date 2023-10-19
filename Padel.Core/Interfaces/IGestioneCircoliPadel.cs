@@ -1,7 +1,7 @@
 ﻿using Padel.Core.Entities;
 namespace Padel.Core.Interfaces;
 
-public interface IGestioneCircoliPadel: IDisposable
+public interface IGestioneCircoliPadel
 {
     List<CircoloPadel> EstraiTuttiICircoli();
     List<CircoloPadel> Cerca(string ricerca);

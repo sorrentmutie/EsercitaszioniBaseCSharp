@@ -116,23 +116,6 @@ public class Lezione6
 
     //}
 
-    //void FaiQualcosa(object state)
-    //{
-    //    var total = (int)state;
-    //    // Thread.Sleep(r.Next(1000, 10000));
-    //    var id = Thread.CurrentThread.ManagedThreadId;
-    //    Console.WriteLine(Thread.CurrentThread.IsBackground);
-
-    //    // var x = total;
-    //    Console.WriteLine($"Ho iniziato a fare qualcosa: {id}");
-    //    //  Thread.Sleep(r.Next(1000,2000));
-    //    //  total = x + 1;
-    //    Console.WriteLine($"Ho finito di fare qualcosa Thread id: {id}");
-
-    //}
-
-
-
     //var t1 = new Task(FaiQualcosa2);
     //t1.Start();
     //t1.Wait();
@@ -149,6 +132,26 @@ public class Lezione6
     //t3.Wait();
 
     //Task.WaitAll(t3, t2);
+
+
+
+
+
+    void FaiQualcosa(object state)
+    {
+        var total = (int)state;
+        // Thread.Sleep(r.Next(1000, 10000));
+        var id = Thread.CurrentThread.ManagedThreadId;
+        Console.WriteLine(Thread.CurrentThread.IsBackground);
+
+        // var x = total;
+        Console.WriteLine($"Ho iniziato a fare qualcosa: {id}");
+        //  Thread.Sleep(r.Next(1000,2000));
+        //  total = x + 1;
+        Console.WriteLine($"Ho finito di fare qualcosa Thread id: {id}");
+
+    }
+
 
 
     #region carrello

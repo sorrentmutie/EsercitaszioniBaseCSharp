@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+</head>
+<body>
+    <h1>Benvenuti al corso</h1>
+
+    <div id="map"></div>
+
+    <button id="myButton">OK</button>
+    <button id="myButton3">Async</button>
+
+    <div id="myDiv">
+       <p>Mio Primo paragrafo</p>
+       <button id="myButton2">OK</button>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+
+    <script>
+       
+    // MiaChiamataAsincrona();
+
+
+
+
+
+     (async function() {
+        // var x = await MiaChiamataAsincrona();
+        const position = await getCurrentPositionAsync();
+        console.log(position);
+     })();
+
+
+        
+
+      var button = document.getElementById("myButton");
+      button.addEventListener("click", function()
+      {
+        ///var myDiv = document.getElementById("myDiv");
+        // console.log(myDiv);
+        // var nuovoDiv = document.createElement("div");
+        // nuovoDiv.innerText = "Nuovo Div";
+        // myDiv.appendChild(nuovoDiv);
+        
+       
+        estraiPosizione();
+      });
+
+      var button2 = document.getElementById("myButton2");
+      button2.addEventListener("click", function()
+      {
+        fetch("https://randomuser.me/api")
+        .then(
+            function(response){
+                console.log(response);
+                return response.json();
+            })
+        .then( function(data){
+            console.log(data);
+            var name = data.results[0].name.first;
+            var myDiv = document.getElementById("myDiv");
+            myDiv.innerText = name;
+            })  
+        });
+
+
+     
+    //   setInterval( () => {
+    //     console.log("b");
+    //     var myDiv = document.getElementById("myDiv");
+    //     console.log(myDiv);
+    //     var nuovoDiv = document.createElement("div");
+    //     nuovoDiv.innerText = "Nuovo Div";
+    //     myDiv.appendChild(nuovoDiv);
+    //   }  , 2000)
+     
+   //   console.log(navigator);
+
+
+      function estraiPosizione(){
+        if(navigator.geolocation) {
+            console.log("a");
+            var position = navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    var myDiv = document.getElementById("myDiv");
+                    myDiv.appendChild(document.createTextNode(position.coords.latitude));
+                    
+                    var url = 'https://api.openweathermap.org/data/2.5/weather?lang=it&units=metric&lat=' + 
+                        position.coords.latitude + '&lon=' +
+                        position.coords.longitude + '&appid=ee6b293d773f4fcd7e434f79bbc341f2';
+
+
+                    var myMap = document.getElementById("map");
+                    myMap.style.height = "400px";
+
+                    var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 13);
+                    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        maxZoom: 19,
+                        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                    }).addTo(map);
+
+                    var meteo = fetch(url)
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                            console.log(data);
+                            var myDiv = document.getElementById("myDiv");
+                            myDiv.appendChild(document.createElement("br"));
+                            myDiv.appendChild(document.createTextNode(data.main.temp));
+                    });
+
+                  
+ 
+
+                }
+                ,
+                function(error) {
+                    console.log(error);
+                }
+            );
+            console.log("c");
+        }
+      }
+
+      async function MiaChiamataAsincrona() {
+        console.log('Mia Chiamata Asincrona');
+        var url = 'https://api.openweathermap.org/data/2.5/weather?lang=it&units=metric&lat=40'+ '&lon=14'+ '&appid=ee6b293d773f4fcd7e434f79bbc341f2';
+        var meteo = await fetch(url);
+        var meteoJson = await meteo.json();
+        console.log(meteoJson);
+      }
+
+      async function getCurrentPositionAsync () {
+        return new Promise( (resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(
+            position => resolve(position),
+            error => reject(error))
+        });
+        }
+
+
+
+
+    </script>
+
+</body>
+</html>

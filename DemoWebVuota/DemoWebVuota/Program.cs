@@ -8,19 +8,41 @@ builder.Services.AddScoped<MyInterface, B>();
 builder.Services.AddScoped<A>();
 builder.Services.AddSingleton<IMyTime, RealTime>();
 
-
 var app = builder.Build();
 
+
+
+
+//app.UseWelcomePage();
+app.UseStaticFiles();
+
+
+
+app.Use( async (context, next) =>
+{
+    app.Logger.LogCritical("Middleware 1");
+    if (context.Request.Path == "/ciao")
+    {
+        await context.Response.WriteAsync("Ciao");
+    }
+    else
+    {
+        await next();
+    }
+
+   // await context.Response.WriteAsync("Hello World!");
+   // await next();
+});
+
+app.Use(async (context, next) =>
+{
+    app.Logger.LogCritical("Middleware 2");
+    // await context.Response.WriteAsync("Hello World!");
+    await next();
+});
+
+
 app.MapGet("/",(MyInterface myInterface, A a) => {
-
-    //MyInterface myInterface = new B();
-    //MyInterface myInterface = new C();
-    //var A = new A(myInterface);
-
-
-    //MyAbstractClass myAbstractClass = new B1();
-    //var A1 = new A1(myAbstractClass);
-
-    return a.DoSomething() ;
+    return a.DoSomething();
 });
 app.Run();

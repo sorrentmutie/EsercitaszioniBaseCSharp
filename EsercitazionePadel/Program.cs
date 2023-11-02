@@ -49,7 +49,6 @@ DbContextOptions<DatabaseNorthwind> options =
     .UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=Northwind;Trusted_Connection=True;")
     .Options;
 
-
 var database = new DatabaseNorthwind(options);
     
 var categories = database.Categories

@@ -14,8 +14,9 @@
 
         public string DoSomething()
         {
-            return $"{configuration["MySetting2:A"]}   {myInterface.Welcome()}";
-           // return $"Do something in class A:  {myInterface.MyMethod()}";
+            return $"{configuration["SettingSpeciale"]}   {myInterface.Welcome()}";
+            // return $"{configuration["MySetting2:A"]}   {myInterface.Welcome()}";
+            // return $"Do something in class A:  {myInterface.MyMethod()}";
         }
     }
 

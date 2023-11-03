@@ -1,0 +1,59 @@
+﻿@page "/istruttori"
+@using Padel.Core.Entities;
+@using Padel.Core.Interfaces;
+@using DemoPadel.RazorLibrary.Components
+
+@inject IDatiIstruttori servizioDatiIstruttori
+
+
+
+@if(istruttoreCorrente == null)
+{
+<button class="btn btn-info" @onclick="() => Aggiungi()">Aggiungi Istruttore</button>
+<ListaIstruttoriPadel 
+    Istruttori="@servizioDatiIstruttori.EstraiIstruttoriDisponibili()"
+    OnIstruttoreEliminato="EliminaIstruttore"
+    OnIstruttoreModificato="ModificaIstruttore"
+    Titolo="Istruttori disponibili nel prossimo mese"/>
+} else
+{
+    <Dettaglio OnAnnulla="Annulla" OnSalva="Salva" Istruttore="@istruttoreCorrente"></Dettaglio>
+}
+
+@code {
+    private IstruttorePadel? istruttoreCorrente;
+
+    private void Salva(IstruttorePadel istruttore)
+    {
+        if(istruttore.Id > 0)
+        {
+            servizioDatiIstruttori.ModificaIstruttoreDisponibile(istruttore);
+
+        } else
+        {
+            servizioDatiIstruttori.AggiungiIstruttoreDisponibile(istruttore);
+        }
+
+        istruttoreCorrente = null;
+    }
+
+    private void Annulla()
+    {
+        istruttoreCorrente = null;
+    }
+
+    private void ModificaIstruttore(IstruttorePadel istruttore)
+    {
+        istruttoreCorrente = istruttore;
+    }
+
+    private void EliminaIstruttore(IstruttorePadel istruttore)
+    {
+        servizioDatiIstruttori.EliminaIstruttoreDisponibile(istruttore);
+    }
+
+    private void Aggiungi()
+    {
+        istruttoreCorrente = new IstruttorePadel() { DataAssunzioneIstruttore = DateTime.Today};
+    }
+}

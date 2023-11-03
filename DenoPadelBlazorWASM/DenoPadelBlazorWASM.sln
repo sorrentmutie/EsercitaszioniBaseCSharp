@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DenoPadelBlazorWASM", "DenoPadelBlazorWASM.csproj", "{D7523B2F-C181-4D28-B7CB-C8AACEE8FD18}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoPadelBlazoirServer", "..\DemoPadelBlazorServer\DemoPadelBlazoirServer.csproj", "{1169B8AC-6649-43F4-A82B-ACA9CAB6BF6B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoPadel.RazorLibrary", "..\DemoPadel.RazorLibrary\DemoPadel.RazorLibrary.csproj", "{951686D2-7219-476D-B8B7-78835F585F34}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Padel.Core", "..\Padel.Core\Padel.Core.csproj", "{DB13522F-406C-43AE-859C-6243DB3C9252}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D7523B2F-C181-4D28-B7CB-C8AACEE8FD18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7523B2F-C181-4D28-B7CB-C8AACEE8FD18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D7523B2F-C181-4D28-B7CB-C8AACEE8FD18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D7523B2F-C181-4D28-B7CB-C8AACEE8FD18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1169B8AC-6649-43F4-A82B-ACA9CAB6BF6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1169B8AC-6649-43F4-A82B-ACA9CAB6BF6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1169B8AC-6649-43F4-A82B-ACA9CAB6BF6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1169B8AC-6649-43F4-A82B-ACA9CAB6BF6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{951686D2-7219-476D-B8B7-78835F585F34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{951686D2-7219-476D-B8B7-78835F585F34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{951686D2-7219-476D-B8B7-78835F585F34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{951686D2-7219-476D-B8B7-78835F585F34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB13522F-406C-43AE-859C-6243DB3C9252}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB13522F-406C-43AE-859C-6243DB3C9252}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB13522F-406C-43AE-859C-6243DB3C9252}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB13522F-406C-43AE-859C-6243DB3C9252}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {39CE8FD0-53B4-4C80-8E07-931767F027D2}
+	EndGlobalSection
+EndGlobal

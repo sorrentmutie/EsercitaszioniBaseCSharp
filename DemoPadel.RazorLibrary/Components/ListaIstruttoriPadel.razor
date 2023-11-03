@@ -1,0 +1,45 @@
+﻿@using Padel.Core.Entities;
+
+<h3>@Titolo</h3>
+<h3>Numero totale di istruttori: @Istruttori.Count</h3>
+
+<table class="table table-striped table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Email</th>
+            <th>Numero di telefono</th>
+            <th>Qualifica</th>
+            <th>Data assunzione</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var istruttore in Istruttori)
+        {
+            <tr>
+                <td>@istruttore.Nome</td>
+                <td>@istruttore.Cognome</td>
+                <td>@istruttore.Email</td>
+                <td>@istruttore.NumeroTelefono</td>
+                <td>@istruttore.Qualifica</td>
+                <td>@istruttore.DataAssunzioneIstruttore</td>
+                <td><button @onclick="() => OnIstruttoreEliminato.InvokeAsync(istruttore)" 
+                    class="btn btn-danger">Elimina</button>
+                    <button @onclick="() => OnIstruttoreModificato.InvokeAsync(istruttore)"
+                        class="btn btn-warning">Modifica</button>    
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code 
+{
+    [Parameter] public string? Titolo { get; set; }
+    [Parameter] public List<IstruttorePadel> Istruttori { get; set; } = new List<IstruttorePadel>();
+    [Parameter] public EventCallback<IstruttorePadel> OnIstruttoreEliminato { get; set; }
+    [Parameter] public EventCallback<IstruttorePadel> OnIstruttoreModificato { get; set; }
+
+}

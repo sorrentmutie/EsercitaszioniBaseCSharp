@@ -2,8 +2,8 @@
 
 public class Persona
 {
-    public string Nome { get; init; }
-    public string Cognome { get; init; }
+    public string Nome { get; set; }
+    public string Cognome { get; set; }
     public string NumeroTelefono { get; set; }
     public string Email { get; set; }
     public int Id { get; set; }

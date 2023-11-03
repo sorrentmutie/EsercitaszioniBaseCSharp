@@ -1,0 +1,25 @@
+﻿@inject ISaluto servizioSaluto
+
+@OtherChildContent
+
+<p>@servizioSaluto.Saluta()</p>
+<h3>Primo Componente</h3>
+<p>@ShowRandomNumber()</p>
+<p>@Message</p>
+<SecondoComponente />
+
+@ChildContent
+
+
+@code {
+    private string Message = "Hello World!";
+
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public RenderFragment? OtherChildContent { get; set; }
+
+    private int ShowRandomNumber()
+    {
+        var random = new Random();
+        return random.Next();
+    }
+}

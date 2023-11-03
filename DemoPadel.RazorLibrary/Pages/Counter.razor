@@ -1,0 +1,26 @@
+﻿@page "/counter"
+@inject IDatiIstruttori servizioDatiIstruttori
+
+<PageTitle>Counter</PageTitle>
+
+<SecondoComponente/>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+<ListaIstruttoriPadel Istruttori="@servizioDatiIstruttori.EstraiIstruttoriNeoAssunti()"
+                      Titolo="Istruttori neo assunti" />
+
+@code {
+
+    
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}

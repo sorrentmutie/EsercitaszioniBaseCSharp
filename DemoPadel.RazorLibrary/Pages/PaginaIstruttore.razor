@@ -1,0 +1,48 @@
+﻿@page "/istruttore/{Id}"
+@using Padel.Core.Interfaces
+@using Padel.Core.ViewModels
+@using DemoPadel.RazorLibrary.Components
+
+@inject IDatiIstruttori servizio
+
+@if(istruttore is not null)
+{
+  <button style="margin-bottom:10px" @onclick="() => AggiungiLezione()" class="btn btn-success">Aggiungi Lezione</button>
+
+  <CardIstruttore istruttore="@istruttore"></CardIstruttore>
+
+    @foreach(var lezione in istruttore.Lezioni)
+    {
+        <p>@lezione.Campo @lezione.DataOraInizio</p>
+    }
+
+}
+
+@code {
+    [Parameter] public string? Id { get; set; }
+    private DettaglioIstruttoreViewModel? istruttore;
+
+    private async Task AggiungiLezione()
+    {
+        if (Id == null) return;
+        var lezione = new LezioneViewModel
+            {
+                Campo = "B",
+                DataOraFine = DateTime.Now.AddHours(1),
+                DataOraInizio = DateTime.Now
+            };
+
+        await servizio.AggiungiLezioneAdIstruttoreAsync(int.Parse(Id), lezione);
+        istruttore = await
+               servizio.EstraiDettaglioIstruttoreAsync(int.Parse(Id));
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if(Id is not null)
+        {
+            istruttore = await
+               servizio.EstraiDettaglioIstruttoreAsync(int.Parse(Id));
+        }
+    }
+}

@@ -4,16 +4,16 @@
 @using DemoPadel.RazorLibrary.Components
 
 @inject IDatiIstruttori servizioDatiIstruttori
-
-
+@inject NavigationManager navigationManager
 
 @if(istruttoreCorrente == null)
 {
 <button class="btn btn-info" @onclick="() => Aggiungi()">Aggiungi Istruttore</button>
 <ListaIstruttoriPadel 
-    Istruttori="@servizioDatiIstruttori.EstraiIstruttoriDisponibili()"
+    Istruttori="@IstruttoriDisponibili"
     OnIstruttoreEliminato="EliminaIstruttore"
     OnIstruttoreModificato="ModificaIstruttore"
+    OnIstruttoreSelezionato="SelezionaIstruttore"
     Titolo="Istruttori disponibili nel prossimo mese"/>
 } else
 {
@@ -23,19 +23,49 @@
 @code {
     private IstruttorePadel? istruttoreCorrente;
 
-    private void Salva(IstruttorePadel istruttore)
-    {
-        if(istruttore.Id > 0)
-        {
-            servizioDatiIstruttori.ModificaIstruttoreDisponibile(istruttore);
+    private List<IstruttorePadel> IstruttoriDisponibili = new();
 
-        } else
+    protected override async Task OnInitializedAsync()
+    {
+        IstruttoriDisponibili = await servizioDatiIstruttori.EstraiIstruttoriDisponibiliAsync();
+    }
+
+    private void SelezionaIstruttore(IstruttorePadel istruttore)
+    {
+        navigationManager.NavigateTo($"/istruttore/{istruttore.Id}");
+    }
+
+    private async Task Salva(IstruttorePadel istruttore)
+    {
+        if (istruttore.Id > 0)
         {
-            servizioDatiIstruttori.AggiungiIstruttoreDisponibile(istruttore);
+            await servizioDatiIstruttori.ModificaIstruttoreDisponibileAsync(istruttore);
+
         }
+        else
+        {
+            await servizioDatiIstruttori.AggiungiIstruttoreDisponibileAsync(istruttore);
+        }
+
+        IstruttoriDisponibili = await servizioDatiIstruttori.EstraiIstruttoriDisponibiliAsync();
 
         istruttoreCorrente = null;
     }
+
+
+    // private void Salva(IstruttorePadel istruttore)
+    // {
+    //     if(istruttore.Id > 0)
+    //     {
+    //         servizioDatiIstruttori.ModificaIstruttoreDisponibile(istruttore);
+
+    //     } else
+    //     {
+    //         servizioDatiIstruttori.AggiungiIstruttoreDisponibile(istruttore);
+    //     }
+
+    //     istruttoreCorrente = null;
+    // }
 
     private void Annulla()
     {
@@ -47,9 +77,10 @@
         istruttoreCorrente = istruttore;
     }
 
-    private void EliminaIstruttore(IstruttorePadel istruttore)
+    private async Task EliminaIstruttore(IstruttorePadel istruttore)
     {
-        servizioDatiIstruttori.EliminaIstruttoreDisponibile(istruttore);
+        await servizioDatiIstruttori.EliminaIstruttoreDisponibileAsync(istruttore);
+        IstruttoriDisponibili = await servizioDatiIstruttori.EstraiIstruttoriDisponibiliAsync();
     }
 
     private void Aggiungi()

@@ -1,4 +1,5 @@
 ﻿using Padel.Core.Entities;
+using Padel.Core.ViewModels;
 
 namespace Padel.Core.Interfaces;
 
@@ -10,4 +11,12 @@ public interface IDatiIstruttori
     void EliminaIstruttoreNeoAssunto(IstruttorePadel istruttore);
     void AggiungiIstruttoreDisponibile(IstruttorePadel istruttore);
     void ModificaIstruttoreDisponibile(IstruttorePadel istruttore);
+
+    Task<List<IstruttorePadel>> EstraiIstruttoriDisponibiliAsync();
+    Task EliminaIstruttoreDisponibileAsync(IstruttorePadel istruttore);
+    Task AggiungiIstruttoreDisponibileAsync(IstruttorePadel istruttore);
+    Task ModificaIstruttoreDisponibileAsync(IstruttorePadel istruttore);
+
+    Task<DettaglioIstruttoreViewModel?> EstraiDettaglioIstruttoreAsync(int id);
+    Task AggiungiLezioneAdIstruttoreAsync(int id, LezioneViewModel lezioneViewModel);
 }

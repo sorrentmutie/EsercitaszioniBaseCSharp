@@ -1,5 +1,6 @@
 ﻿using Padel.Core.Entities;
 using Padel.Core.Interfaces;
+using Padel.Core.ViewModels;
 
 namespace DenoPadelBlazorWASM.Services;
 
@@ -36,9 +37,24 @@ public class ServizioIstruttoriBlazorWASM : IDatiIstruttori
         istruttoriDisponibili.Add(istruttore);
     }
 
+    public Task AggiungiIstruttoreDisponibileAsync(IstruttorePadel istruttore)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task AggiungiLezioneAdIstruttoreAsync(int id, LezioneViewModel lezioneViewModel)
+    {
+        throw new NotImplementedException();
+    }
+
     public void EliminaIstruttoreDisponibile(IstruttorePadel istruttore)
     {
         istruttoriDisponibili.Remove(istruttore);
+    }
+
+    public Task EliminaIstruttoreDisponibileAsync(IstruttorePadel istruttore)
+    {
+        throw new NotImplementedException();
     }
 
     public void EliminaIstruttoreNeoAssunto(IstruttorePadel istruttore)
@@ -46,9 +62,19 @@ public class ServizioIstruttoriBlazorWASM : IDatiIstruttori
         istruttoriNeoAssunti.Remove(istruttore);
     }
 
+    public Task<DettaglioIstruttoreViewModel> EstraiDettaglioIstruttoreAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public List<IstruttorePadel> EstraiIstruttoriDisponibili()
     {
         return istruttoriDisponibili;
+    }
+
+    public Task<List<IstruttorePadel>> EstraiIstruttoriDisponibiliAsync()
+    {
+        throw new NotImplementedException();
     }
 
     public List<IstruttorePadel> EstraiIstruttoriNeoAssunti()
@@ -64,5 +90,10 @@ public class ServizioIstruttoriBlazorWASM : IDatiIstruttori
             istruttoriDisponibili.Remove(istruttoreDb);
             istruttoriDisponibili.Add(istruttore);
         }
+    }
+
+    public Task ModificaIstruttoreDisponibileAsync(IstruttorePadel istruttore)
+    {
+        throw new NotImplementedException();
     }
 }

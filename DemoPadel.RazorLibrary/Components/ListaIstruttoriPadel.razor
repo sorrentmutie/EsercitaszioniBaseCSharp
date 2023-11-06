@@ -28,7 +28,10 @@
                 <td><button @onclick="() => OnIstruttoreEliminato.InvokeAsync(istruttore)" 
                     class="btn btn-danger">Elimina</button>
                     <button @onclick="() => OnIstruttoreModificato.InvokeAsync(istruttore)"
-                        class="btn btn-warning">Modifica</button>    
+                        class="btn btn-warning">Modifica</button> 
+                    <button class="btn btn-info"
+                       @onclick="() => OnIstruttoreSelezionato.InvokeAsync(istruttore)"
+                    >Lezioni</button>
                 </td>
             </tr>
         }
@@ -41,5 +44,5 @@
     [Parameter] public List<IstruttorePadel> Istruttori { get; set; } = new List<IstruttorePadel>();
     [Parameter] public EventCallback<IstruttorePadel> OnIstruttoreEliminato { get; set; }
     [Parameter] public EventCallback<IstruttorePadel> OnIstruttoreModificato { get; set; }
-
+    [Parameter] public EventCallback<IstruttorePadel> OnIstruttoreSelezionato { get; set; }
 }

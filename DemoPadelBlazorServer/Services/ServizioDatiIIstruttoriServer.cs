@@ -1,5 +1,6 @@
 ﻿using Padel.Core.Entities;
 using Padel.Core.Interfaces;
+using Padel.Core.ViewModels;
 
 namespace DemoPadelBlazoirServer.Services;
 
@@ -68,4 +69,33 @@ public class ServizioDatiIstruttoriServer : IDatiIstruttori
         istruttoriDisponibili.Add(istruttore);
     }
 
+    public Task<List<IstruttorePadel>> EstraiIstruttoriDisponibiliAsync()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task EliminaIstruttoreDisponibileAsync(IstruttorePadel istruttore)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task AggiungiIstruttoreDisponibileAsync(IstruttorePadel istruttore)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task ModificaIstruttoreDisponibileAsync(IstruttorePadel istruttore)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task<DettaglioIstruttoreViewModel> EstraiDettaglioIstruttoreAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task AggiungiLezioneAdIstruttoreAsync(int id, LezioneViewModel lezioneViewModel)
+    {
+        throw new NotImplementedException();
+    }
 }

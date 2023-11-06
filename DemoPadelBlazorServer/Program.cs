@@ -1,8 +1,3 @@
-using DemoPadelBlazoirServer.Data;
-using DemoPadelBlazoirServer.Services;
-using Padel.Core;
-using Padel.Core.Interfaces;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,8 +5,10 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddSingleton<ISaluto, SalutoBlazorServer>();
-builder.Services.AddScoped<IDatiIstruttori, ServizioDatiIstruttoriServer>();
+builder.Services.AddScoped<IDatiIstruttori, ServizioDatiIstruttoriPadelSQLServer>();
 builder.Services.AddScoped<IWeatherForecastService, WeatherForecastService>();
+builder.Services.AddDbContext<PadelDataContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("PadelDataContext")));
 
 var app = builder.Build();
 

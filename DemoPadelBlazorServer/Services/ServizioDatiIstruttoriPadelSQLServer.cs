@@ -29,8 +29,11 @@ public class ServizioDatiIstruttoriPadelSQLServer : IDatiIstruttori
     public async Task AggiungiLezioneAdIstruttoreAsync(int id, LezioneViewModel lezioneViewModel)
     {
 
+        var istruttore = await padelDataContext.IstruttoriPadel.FindAsync(id);
+        if(istruttore == null) return;
 
-        padelDataContext.Lezioni.Add(
+
+        istruttore.Lezioni.Add(
            new Lezione
            {
                 Campo = lezioneViewModel.Campo,

@@ -98,4 +98,14 @@ public class ServizioDatiIstruttoriServer : IDatiIstruttori
     {
         throw new NotImplementedException();
     }
+
+    public Task<IstruttorePadel> EstraiIstruttorePerIdAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task PatchIstruttoreDisponibileAsync(IstruttorePadel istruttore)
+    {
+        throw new NotImplementedException();
+    }
 }

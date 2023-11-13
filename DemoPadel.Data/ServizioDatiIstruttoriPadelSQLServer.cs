@@ -1,7 +1,9 @@
-﻿using Padel.Core.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Padel.Core.Entities;
+using Padel.Core.Interfaces;
 using Padel.Core.ViewModels;
 
-namespace DemoPadelBlazoirServer.Services;
+namespace DemoPadel.Data;
 
 public class ServizioDatiIstruttoriPadelSQLServer : IDatiIstruttori
 {
@@ -32,7 +34,6 @@ public class ServizioDatiIstruttoriPadelSQLServer : IDatiIstruttori
         var istruttore = await padelDataContext.IstruttoriPadel.FindAsync(id);
         if(istruttore == null) return;
 
-
         istruttore.Lezioni.Add(
            new Lezione
            {
@@ -41,15 +42,7 @@ public class ServizioDatiIstruttoriPadelSQLServer : IDatiIstruttori
                 DataOraFine = lezioneViewModel.DataOraFine,
                 IstruttoreId = id
            });
-
-        try
-        {
             await padelDataContext.SaveChangesAsync();
-        }
-        catch (Exception ex)
-        {
-            
-        }
     }
 
     public void EliminaIstruttoreDisponibile(IstruttorePadel istruttore)
@@ -102,6 +95,14 @@ public class ServizioDatiIstruttoriPadelSQLServer : IDatiIstruttori
         return dettaglio;
     }
 
+    public async Task<IstruttorePadel?> EstraiIstruttorePerIdAsync(int id)
+    {
+        var istruttore = await padelDataContext.IstruttoriPadel.FindAsync(id);
+        if(istruttore == null) return null;
+        padelDataContext.Entry(istruttore).State = EntityState.Detached;    
+        return istruttore;
+    }
+
     public List<IstruttorePadel> EstraiIstruttoriDisponibili()
     {
         return padelDataContext.IstruttoriPadel.Where(x=> x.Disponibile == true).ToList();
@@ -136,5 +137,15 @@ public class ServizioDatiIstruttoriPadelSQLServer : IDatiIstruttori
             padelDataContext.Entry(istruttore).State = EntityState.Modified;
             await padelDataContext.SaveChangesAsync();
         }
+    }
+
+    public async Task PatchIstruttoreDisponibileAsync(IstruttorePadel istruttore)
+    {
+        var istruttoreDb = await padelDataContext.IstruttoriPadel.FindAsync(istruttore.Id);
+        if(istruttoreDb == null) return;
+        if(istruttore.Nome != null) istruttoreDb.Nome = istruttore.Nome;
+        if(istruttore.Cognome != null) istruttoreDb.Cognome = istruttore.Cognome;
+        if(istruttore.Email != null) istruttoreDb.Email = istruttore.Email;
+        await padelDataContext.SaveChangesAsync();
     }
 }

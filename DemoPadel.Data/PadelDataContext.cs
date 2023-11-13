@@ -1,4 +1,7 @@
-﻿namespace DemoPadelBlazoirServer.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using Padel.Core.Entities;
+
+namespace DemoPadel.Data;
 
 public class PadelDataContext: DbContext
 {

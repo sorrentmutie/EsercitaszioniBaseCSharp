@@ -16,6 +16,9 @@ public interface IDatiIstruttori
     Task EliminaIstruttoreDisponibileAsync(IstruttorePadel istruttore);
     Task AggiungiIstruttoreDisponibileAsync(IstruttorePadel istruttore);
     Task ModificaIstruttoreDisponibileAsync(IstruttorePadel istruttore);
+    Task<IstruttorePadel?> EstraiIstruttorePerIdAsync(int id);
+    Task PatchIstruttoreDisponibileAsync(IstruttorePadel istruttore);
+
 
     Task<DettaglioIstruttoreViewModel?> EstraiDettaglioIstruttoreAsync(int id);
     Task AggiungiLezioneAdIstruttoreAsync(int id, LezioneViewModel lezioneViewModel);

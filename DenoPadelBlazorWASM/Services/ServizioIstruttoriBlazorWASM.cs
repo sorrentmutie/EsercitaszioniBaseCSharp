@@ -1,11 +1,18 @@
 ﻿using Padel.Core.Entities;
 using Padel.Core.Interfaces;
 using Padel.Core.ViewModels;
+using System.Net.Http.Json;
 
 namespace DenoPadelBlazorWASM.Services;
 
 public class ServizioIstruttoriBlazorWASM : IDatiIstruttori
 {
+    public ServizioIstruttoriBlazorWASM(HttpClient httpClient)
+    {
+        this.httpClient = httpClient;
+    }
+
+
     private static List<IstruttorePadel> istruttoriDisponibili = new List<IstruttorePadel>()
         {
             new IstruttorePadel { Nome = "Mario", Cognome = "Rossi",
@@ -25,6 +32,7 @@ public class ServizioIstruttoriBlazorWASM : IDatiIstruttori
             Qualifica = "Maestro C", DataAssunzioneIstruttore = new DateTime(2023, 1, 1 )
         },
     };
+    private readonly HttpClient httpClient;
 
     public void AggiungiIstruttoreDisponibile(IstruttorePadel istruttore)
     {
@@ -67,14 +75,27 @@ public class ServizioIstruttoriBlazorWASM : IDatiIstruttori
         throw new NotImplementedException();
     }
 
+    public Task<IstruttorePadel> EstraiIstruttorePerIdAsync(int id)
+    {
+        throw new NotImplementedException();
+    }
+
     public List<IstruttorePadel> EstraiIstruttoriDisponibili()
     {
         return istruttoriDisponibili;
     }
 
-    public Task<List<IstruttorePadel>> EstraiIstruttoriDisponibiliAsync()
+    public async Task<List<IstruttorePadel>> EstraiIstruttoriDisponibiliAsync()
     {
-        throw new NotImplementedException();
+       var response = await httpClient.GetAsync("https://localhost:7182/istruttori");
+       if (response.IsSuccessStatusCode)
+       {
+            var data = await response.Content.ReadFromJsonAsync<List<IstruttorePadel>>();
+            return data ?? new List<IstruttorePadel>();
+
+       } else{
+            return new List<IstruttorePadel>();
+       }
     }
 
     public List<IstruttorePadel> EstraiIstruttoriNeoAssunti()
@@ -93,6 +114,11 @@ public class ServizioIstruttoriBlazorWASM : IDatiIstruttori
     }
 
     public Task ModificaIstruttoreDisponibileAsync(IstruttorePadel istruttore)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Task PatchIstruttoreDisponibileAsync(IstruttorePadel istruttore)
     {
         throw new NotImplementedException();
     }
